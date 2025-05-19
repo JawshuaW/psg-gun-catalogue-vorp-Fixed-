@@ -1,3 +1,4 @@
+
 -- CLIENT MODULE
 ----------------
 
@@ -8,13 +9,16 @@ local active = false
 local prop = {}
 local code = nil
 local store
+local proximityRange = 5.0
 
 -- events
 
 AddEventHandler('onResourceStop', function(resource)
     if resource == GetCurrentResourceName() then
-        PromptSetEnabled(store, false)
-        PromptSetVisible(store, false)
+        if PromptIsValid(store) then
+            PromptSetEnabled(store, false)
+            PromptSetVisible(store, false)
+        end
         FreezeEntityPosition(PlayerPedId(), false)
     end
 end)
@@ -24,45 +28,37 @@ end)
 Citizen.CreateThread(function()
     StorePrompt()
     while true do
-        local sleep = 7
+        local sleep = 1000
         local ped = PlayerPedId()
         local pedcoords = GetEntityCoords(ped)
+        local storeFound = false
+
         for i = 1, #Config.storeConfig do
-            if IsStoreClosed(Config.storeConfig[i]) == false then
-                local distance = #(vector3(Config.storeConfig[i].location.x, Config.storeConfig[i].location.y, Config.storeConfig[i].location.z)-vector3(pedcoords["x"], pedcoords["y"], pedcoords["z"]))
-                if distance < 100 then
-                    if distance < 2 then
-                        sleep = 5
-                        if PromptIsValid(store) and not active then
-                            PromptSetVisible(store, true)
-                            PromptSetEnabled(store, true)
-                        end                   
-                        if PromptHasHoldModeCompleted(store) then
-                            PromptSetEnabled(store, false)
-                            PromptSetVisible(store, false)
-                            active = true
-                            OpenUI()
-                            FreezeEntityPosition(PlayerPedId(), true)
-                        end
-                    else
-                        if PromptIsValid(store) then
-                            sleep = 50
-                            PromptSetEnabled(store, false)
-                            PromptSetVisible(store, false)
-                        end                 
-                        sleep = 1200
+            if not IsStoreClosed(Config.storeConfig[i]) then
+                local distance = #(vector3(Config.storeConfig[i].location.x, Config.storeConfig[i].location.y, Config.storeConfig[i].location.z) - pedcoords)
+                if distance < proximityRange then
+                    storeFound = true
+                    sleep = 5
+                    if PromptIsValid(store) and not active then
+                        PromptSetVisible(store, true)
+                        PromptSetEnabled(store, true)
                     end
-                end
-            else
-                if PromptIsValid(store) then
-                    PromptSetEnabled(store, false)
-                    PromptSetVisible(store, false)
-                end 
-                if active then
-                    CloseUI()
+                    if PromptHasHoldModeCompleted(store) then
+                        PromptSetEnabled(store, false)
+                        PromptSetVisible(store, false)
+                        active = true
+                        OpenUI()
+                        FreezeEntityPosition(PlayerPedId(), true)
+                    end
                 end
             end
         end
+
+        if not storeFound and PromptIsValid(store) then
+            PromptSetEnabled(store, false)
+            PromptSetVisible(store, false)
+        end
+
         Citizen.Wait(sleep)
     end
 end)
@@ -72,13 +68,11 @@ end)
 Citizen.CreateThread(function ()
     local blips = {}
     local book = GetHashKey("mp001_s_mp_catalogue01x")
-    local pcoords = GetEntityCoords(PlayerPedId())
     RequestModel(book)
     while not HasModelLoaded(book) do
         Citizen.Wait(0)
     end
     for i=1, #Config.storeConfig do
-        -- make blip
         local blip = Citizen.InvokeNative(0x554D9D53F696D002, 1664425300, Config.storeConfig[i].location.x, Config.storeConfig[i].location.y, Config.storeConfig[i].location.z)
         SetBlipSprite(blip, -145868367, 1)
         Citizen.InvokeNative(0x9CB1A1623062F402, blip, "Gun Store")
@@ -90,9 +84,8 @@ Citizen.CreateThread(function ()
     end
     while true do
         Citizen.Wait(1)
-        for i=1, #Config.storeConfig do
-            -- store close check
-            if IsStoreClosed(Config.storeConfig[i]) == true then
+        for i = 1, #Config.storeConfig do
+            if IsStoreClosed(Config.storeConfig[i]) then
                 BlipAddModifier(blips[i], 'BLIP_MODIFIER_MP_COLOR_10')
             else
                 BlipAddModifier(blips[i], 'BLIP_MODIFIER_MP_COLOR_32')
@@ -123,31 +116,25 @@ function StorePrompt()
         store = PromptRegisterBegin()
         PromptSetControlAction(store, 0x5E723D8C)
         PromptSetText(store, CreateVarString(10, "LITERAL_STRING", "Browse the gun store"))
-        PromptSetEnabled(store, 1)
-        PromptSetVisible(store, 1)
+        PromptSetEnabled(store, false)
+        PromptSetVisible(store, false)
         PromptSetHoldMode(store, 1)
         PromptRegisterEnd(store)
-        PromptSetGroup(store, 0, 1)       
+        PromptSetGroup(store, 0, 1)
     end)
 end
 
 function Startup()
     isOpen = false
     SetNuiFocus(isOpen, isOpen)
-    SendNUIMessage({
-        type = "OpenBookGui",
-        value = false
-    })
+    SendNUIMessage({ type = "OpenBookGui", value = false })
 end
 
 function OpenUI()
     isOpen = true
-    SetNuiFocus(isOpen, isOpen)
-    SendNUIMessage({
-        type = "OpenBookGui",
-        value = true,
-    })
-    TriggerEvent("vorp:Tip", "Use <- and -> to change pages and Backspace to close", 4000)
+    SetNuiFocus(true, true)
+    SendNUIMessage({ type = "OpenBookGui", value = true })
+    TriggerEvent("vorp:Tip", "Click the left or right edge of the page to turn it, or press Backspace to close.", 8000)
 end
 
 function CloseUI()
@@ -155,10 +142,7 @@ function CloseUI()
     SetNuiFocus(false, false)
     active = false
     FreezeEntityPosition(PlayerPedId(), false)
-    SendNUIMessage({
-        type = "OpenBookGui",
-        value = false
-    })
+    SendNUIMessage({ type = "OpenBookGui", value = false })
 end
 
 function Purchase(data)
@@ -169,37 +153,16 @@ function Purchase(data)
         print("[DEBUG] Sending purchase data", json.encode(data), "with code", code)
         TriggerServerEvent('gunCatalogue:Purchase', data, code)
     end)
-
     TriggerServerEvent('gunCatalogue:getCode')
 end
 
-
-
-
-
-
-
 -- UI and sound handling
-RegisterCommand('closeui', function(...)
-    doClose = true
-end)
 
+RegisterCommand('closeui', function(...) doClose = true end)
 RegisterNUICallback('purchaseweapon', Purchase)
-
-RegisterNUICallback("close", function(_, cb)
-    print("[DEBUG] NUI 'close' callback received")
-    CloseUI()
-    cb({})
-end)
-
-RegisterNUICallback('playSoundPageLeft', function()
-    PlaySoundFrontend("NAV_LEFT", "Ledger_Sounds", true, 0)
-end)
-
-RegisterNUICallback('playSoundPageRight', function()
-    PlaySoundFrontend("NAV_RIGHT", "Ledger_Sounds", true, 0)
-end)
-
+RegisterNUICallback("close", function(_, cb) CloseUI() cb({}) end)
+RegisterNUICallback('playSoundPageLeft', function() PlaySoundFrontend("NAV_LEFT", "Ledger_Sounds", true, 0) end)
+RegisterNUICallback('playSoundPageRight', function() PlaySoundFrontend("NAV_RIGHT", "Ledger_Sounds", true, 0) end)
 
 RegisterNetEvent('gunCatalogue:playSoundPurchase')
 AddEventHandler('gunCatalogue:playSoundPurchase', function()
@@ -217,7 +180,8 @@ function IsStoreClosed(storeConfig)
     end
 end
 
--- Detect BACKSPACE key to close the UI
+-- Detect BACKSPACE key to close UI
+
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
@@ -234,7 +198,6 @@ function TriggerServerCallback(name, cb, ...)
     serverCallbacks[requestId] = cb
     local eventName = name .. ":cb" .. requestId
     local handler
-
     handler = AddEventHandler(eventName, function(...)
         RemoveEventHandler(handler)
         if serverCallbacks[requestId] then
@@ -242,7 +205,5 @@ function TriggerServerCallback(name, cb, ...)
             serverCallbacks[requestId] = nil
         end
     end)
-
     TriggerServerEvent(name, requestId, ...)
 end
-
