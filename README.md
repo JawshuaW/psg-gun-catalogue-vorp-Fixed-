@@ -46,13 +46,14 @@ I did **not** create the core functionality. This version focuses on:
 ## 📦 Installation
 
 1. Download or clone the repository into your server’s `resources` folder.
-2. Add the following line to your `server.cfg` or `resources.cfg`:
+2. Rename the folder to psg-gun-catalogue-vorp
+3. Add the following line to your `server.cfg` or `resources.cfg`:
 
     ```cfg
-    ensure psg-gun-catalogue-vorp-Fixed
+    ensure psg-gun-catalogue-vorp
     ```
 
-3. Make sure you have **VORP Core** properly installed and configured.
+4. Make sure you have **VORP Core** properly installed and configured.
 
 ---
 
