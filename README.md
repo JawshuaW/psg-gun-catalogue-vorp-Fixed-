@@ -1,47 +1,64 @@
-🔫 Looking to add a clean and immersive gun browsing experience to your RedM server?
+# 🔫 PSG Gun Catalogue (VORP) – Fixed & Polished
 
-This is a **fixed and polished version** of the PSG Gun Catalogue script for VORP Core. It allows players to view every weapon in the game, complete with a smooth UI and proper names.
+Looking to add a clean, immersive gun browsing experience to your RedM server? This is a **refined and updated version** of the original PSG Gun Catalogue script, now fully compatible with modern **VORP Core** setups.
 
-I did **not** create the original script — I’ve simply **fixed bugs, cleaned up the UI**, and made it easier to install and use for modern VORP setups.
-
----
-
-✨ **Features:**
-- 🧾 Catalogue-style UI to browse all available guns
-- 🛠️ Fixed issues from the original release (UI behavior, compatibility)
-- 🔫 View weapon stats, categories, and names
-- 🎨 Clean and historically styled layout
-- 💻 Fully NUI-based (HTML/CSS/JS) interface
-- ✅ Compatible with modern VORP setups
+> ⚠️ **Note:** I am not the original creator — this is a **cleaned-up and fixed** release based on the original PSG work.
 
 ---
 
-🛠️ **Installation:**
-1. Drop the folder into your server resources
-2. Add `ensure psg-gun-catalogue-vorp-Fixed-` to your `server.cfg`
-3. You're done! No SQL import required
+## ✨ Features
+
+- 🧾 Elegant, catalogue-style UI to browse all in-game weapons
+- 🛠️ Fixed original bugs (UI glitches, NUI behavior, compatibility)
+- 🔫 Browse full weapon list with proper names, stats, and categories
+- 🎨 Historically themed and user-friendly layout
+- 💻 Built entirely using HTML/CSS/JS (NUI-based)
+- ✅ Plug-and-play support for current **VORP Core** builds
 
 ---
 
-📸 **Screenshot Preview:**  
-https://files.catbox.moe/ab18ux.png
+## 🛠️ Installation
+
+1. Download or clone this repo.
+2. Drop the folder into your RedM server's `resources` directory.
+3. Add the following to your `server.cfg`:
+   ```cfg
+   ensure psg-gun-catalogue-vorp
+   ```
+4. Launch your server — no SQL import required.
 
 ---
 
-📦 **Download on GitHub:**  
-🔗 https://github.com/JawshuaW/psg-gun-catalogue-vorp-Fixed-
+## 📸 Screenshot Preview
+
+![Gun Catalogue Preview](https://files.catbox.moe/yz5wd1.jpg)
 
 ---
 
-🙏 **Credits:**  
-- Original concept by **PSG Development**  
-- VORP-compatible base by [Dunko](https://github.com/DunkoUK)  
-- UI & code cleanup + bug fixes by [JawshuaW](https://github.com/JawshuaW)  
-- Additional contributions & testing by [CreativeWild (VORP Dev Team)](https://github.com/creativewild)
+## 📦 Download
+
+🔗 **GitHub Repo:**  
+[https://github.com/JawshuaW/psg-gun-catalogue-vorp-Fixed-](https://github.com/JawshuaW/psg-gun-catalogue-vorp-Fixed-)
 
 ---
 
-🎯 Perfect for adding a shop-style showcase, immersive weapon reference, or just giving players a way to browse gear without guesswork.
+## 🙏 Credits
 
-Enjoy and feel free to improve it further!
+- Original concept by **PSG Development**
+- VORP-compatible base: [@DunkoUK](https://github.com/DunkoUK)
+- Bug fixes, UI cleanup, and compatibility patch: [@JawshuaW](https://github.com/JawshuaW)
+- Additional testing/support: [@creativewild](https://github.com/creativewild) (VORP Dev Team)
 
+---
+
+## 🎯 Use Cases
+
+Perfect for:
+- Weapon shop previews
+- Gear browsing in immersive menus
+- Reference tool for players and staff
+- Integrating into general store UIs or catalogues
+
+---
+
+### Enjoy the script — and feel free to improve or contribute!
