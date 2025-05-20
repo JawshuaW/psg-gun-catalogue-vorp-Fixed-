@@ -1,108 +1,50 @@
-# 🛠️ psg-gun-catalogue-vorp-Fixed
+# psg-gun-catalogue-vorp
 
-A custom weapon catalogue UI for **VORP Core** (RedM).  
-This script allows players to browse, preview, and purchase weapons using an immersive, interactive gun catalogue interface.
+An interactive catalogue for purchasing weapons similar to the one found in RDO.
 
----
+## FEATURES
 
-## 🎬 Video Preview
+- An interactive weapons catalogue UI similar to the one in RDO
 
-[![Watch the Showcase](https://img.youtube.com/vi/Lac_VgkMXSk/0.jpg)](https://youtu.be/Lac_VgkMXSk?si=SbsdxmYHkLg0F4YO&t=20)
+- Buy weapons and ammo from the UI
 
-Click the image above or [watch on YouTube](https://youtu.be/Lac_VgkMXSk?si=SbsdxmYHkLg0F4YO&t=20)  
-(starting at 00:20)
+- Configurable global weapon and ammo prices
 
----
+- Uses `BASE_WEAPON_NAMES` and `baseammonames` for ease of use
 
-## 📝 Special Note
+- More to come!
 
-This is a **fixed and enhanced version** of the PSG Gun Catalogue originally forked from:
+## INSTALLATION
 
-- 🔗 [robwhitewick/gun_catalogue](https://github.com/robwhitewick/gun_catalogue) – original creator: **robwhitewick**
-- 🔗 [Press-Start-Gaming/psg-gun-catalogue-vorp](https://github.com/Press-Start-Gaming/psg-gun-catalogue-vorp) – VORP version by: **EdWordy**
+- Download the zip
 
-I did **not** create the core functionality. This version focuses on:
+- Place in an appropriate folder in `resources` (ie `[ ThirdParty ]`)
 
-- Fixing broken UI and NUI event behavior
-- Cleaning and reorganizing code
-- Enhancing compatibility with modern VORP builds
-- Improving user experience and visual layout
+- add `ensure psg-gun-catalogue-vorp` to your `server.cfg` below both dependencies (don't rename the folder as this will break the mod)
 
-> 💡 **All credit for the original script goes to robwhitewick and EdWordy.**  
-> This fork simply aims to deliver a more stable and polished version for server owners.
+- Disable any other gun stores that you have (such as the ones found in vorp_weaponsv2, just delete the contents of the store config)
 
-📦 **Free to use, improve, and share.**
+- Set your weapon prices in `server.lua`
 
----
+- You should be good to go!
 
-## 📸 Screenshot Previews
+- OPTIONAL: Leave any comments, questions, suggestion or bugs in the issue section. Thanks!
 
-| Catalogue UI | Buy Menu | Weapon Preview | Category List |
-|--------------|----------|----------------|----------------|
-| ![Preview 1](https://files.catbox.moe/92qh04.png) | ![Preview 2](https://files.catbox.moe/hwkg84.png) | ![Preview 3](https://files.catbox.moe/n8mm6a.png) | ![Preview 4](https://files.catbox.moe/4091j2.png) |
+## DEPENDENCIES
 
----
+- vorp_core
 
-## 📦 Installation
+- vorp_inventory
 
-1. Download or clone the repository into your server’s `resources` folder.
-2. Rename the folder to psg-gun-catalogue-vorp
-3. Add the following line to your `server.cfg` or `resources.cfg`:
+- vorp_weaponsv2
 
-    ```cfg
-    ensure psg-gun-catalogue-vorp
-    ```
+## CONTROLS
 
-4. Make sure you have **VORP Core** properly installed and configured.
+`<-` Flip Left
+`->` Flip Right
+`ESC` Close
+`E` Open
 
----
+## THANKS
 
-## 🔧 Features
-
-- 📖 Interactive in-game gun catalogue
-- 💸 Purchase weapons directly through the UI
-- 🎨 Clean and improved HTML/CSS layout
-- 🧼 Reorganized Lua code for readability and performance
-- 🔊 Support for custom sounds and categories
-- 🗂️ Editable icons and category names
-- 🧠 Improved NUI prompt handling and closing logic
-
----
-
-## ✅ Fixes & Improvements
-
-- Fixed issue with prompts not closing or stacking
-- Removed unsafe net events and added proper checks
-- Smoothed NUI interaction and focus handling
-- Better overall compatibility with newer VORP Core versions
-- Codebase cleanup for easier modification
-
----
-
-## 🗒️ Notes
-
-- UI elements (icons, logos, category titles) are customizable in `/html`
-- Sounds and visual assets can be replaced with your own for personalization
-- Always test purchases based on your inventory/economy system
-
----
-
-## 🤝 Credits
-
-- 👨‍💻 Original creator: [robwhitewick](https://github.com/robwhitewick)
-- 🛠️ VORP adaptation: [EdWordy / Press Start Gaming](https://github.com/Press-Start-Gaming/psg-gun-catalogue-vorp)
-- 🔧 Fixes and cleanup: **This repository**
-
----
-
-## 📬 Contribute
-
-Feel free to fork, contribute, or submit pull requests.  
-Let’s keep making RedM development better together.
-
----
-
-## 🪪 License
-
-This script is provided freely for the community.  
-Proper credit is appreciated but not required.
+>Forked from Erratic and Steadys gun_catalogue
