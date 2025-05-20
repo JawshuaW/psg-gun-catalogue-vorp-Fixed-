@@ -1,50 +1,47 @@
-# psg-gun-catalogue-vorp
+🔫 Looking to add a clean and immersive gun browsing experience to your RedM server?
 
-An interactive catalogue for purchasing weapons similar to the one found in RDO.
+This is a **fixed and polished version** of the PSG Gun Catalogue script for VORP Core. It allows players to view every weapon in the game, complete with a smooth UI and proper names.
 
-## FEATURES
+I did **not** create the original script — I’ve simply **fixed bugs, cleaned up the UI**, and made it easier to install and use for modern VORP setups.
 
-- An interactive weapons catalogue UI similar to the one in RDO
+---
 
-- Buy weapons and ammo from the UI
+✨ **Features:**
+- 🧾 Catalogue-style UI to browse all available guns
+- 🛠️ Fixed issues from the original release (UI behavior, compatibility)
+- 🔫 View weapon stats, categories, and names
+- 🎨 Clean and historically styled layout
+- 💻 Fully NUI-based (HTML/CSS/JS) interface
+- ✅ Compatible with modern VORP setups
 
-- Configurable global weapon and ammo prices
+---
 
-- Uses `BASE_WEAPON_NAMES` and `baseammonames` for ease of use
+🛠️ **Installation:**
+1. Drop the folder into your server resources
+2. Add `ensure psg-gun-catalogue-vorp-Fixed-` to your `server.cfg`
+3. You're done! No SQL import required
 
-- More to come!
+---
 
-## INSTALLATION
+📸 **Screenshot Preview:**  
+https://files.catbox.moe/ab18ux.png
 
-- Download the zip
+---
 
-- Place in an appropriate folder in `resources` (ie `[ ThirdParty ]`)
+📦 **Download on GitHub:**  
+🔗 https://github.com/JawshuaW/psg-gun-catalogue-vorp-Fixed-
 
-- add `ensure psg-gun-catalogue-vorp` to your `server.cfg` below both dependencies (don't rename the folder as this will break the mod)
+---
 
-- Disable any other gun stores that you have (such as the ones found in vorp_weaponsv2, just delete the contents of the store config)
+🙏 **Credits:**  
+- Original concept by **PSG Development**  
+- VORP-compatible base by [Dunko](https://github.com/DunkoUK)  
+- UI & code cleanup + bug fixes by [JawshuaW](https://github.com/JawshuaW)  
+- Additional contributions & testing by [CreativeWild (VORP Dev Team)](https://github.com/creativewild)
 
-- Set your weapon prices in `server.lua`
+---
 
-- You should be good to go!
+🎯 Perfect for adding a shop-style showcase, immersive weapon reference, or just giving players a way to browse gear without guesswork.
 
-- OPTIONAL: Leave any comments, questions, suggestion or bugs in the issue section. Thanks!
+Enjoy and feel free to improve it further!
 
-## DEPENDENCIES
-
-- vorp_core
-
-- vorp_inventory
-
-- vorp_weaponsv2
-
-## CONTROLS
-
-`<-` Flip Left
-`->` Flip Right
-`ESC` Close
-`E` Open
-
-## THANKS
-
->Forked from Erratic and Steadys gun_catalogue
