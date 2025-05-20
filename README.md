@@ -19,13 +19,16 @@ Looking to add a clean, immersive gun browsing experience to your RedM server? T
 
 ## 🛠️ Installation
 
+## 🛠️ Installation
+
 1. Download or clone this repo.
 2. Drop the folder into your RedM server's `resources` directory.
-3. Add the following to your `server.cfg`:
+3. Rename the folder to `psg-gun-catalogue-vorp`.
+4. Add the following to your `server.cfg`:
    ```cfg
    ensure psg-gun-catalogue-vorp
    ```
-4. Launch your server — no SQL import required.
+5. Launch your server — no SQL import required.
 
 ---
 
